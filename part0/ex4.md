@@ -65,6 +65,4 @@ sequenceDiagram
 
     Note right of browser: browser executes a callback function whihc renders the notes on the webpage
 
-
-
 ```
