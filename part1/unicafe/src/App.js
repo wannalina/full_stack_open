@@ -1,44 +1,85 @@
 import { useState } from 'react'
 
 
-const StatisticCount = ({statistics}) => {
+const Statistics = ({statistics}) => {
+  const total = () => {
+    let count = 0
+    statistics.forEach(element => {
+      count += element.count
+    });
+    return (count)
+  }
+
+  const average = () => {
+    let number = 0
+    statistics.forEach(element => {
+      number += element.count
+    });
+
+    const sum = (statistics[0].count * statistics[0].score)
+               + (statistics[1].count * statistics[1].score) 
+               + (statistics[2].count * statistics[2].score)
+    const avg = sum / number 
+    return (avg)
+  }
+
+  const positive = () => {
+    const all = total()
+    const positive = statistics[0].count / all
+    return (positive + '%')
+  }
+
   return (
     <div>
-      <Statistic statistics={statistics.good}/>
-      <Statistic statistics={statistics.neutral}/>
-      <Statistic statistics={statistics.bad}/>
+      <Statistic name={statistics[0].name} count={statistics[0].count}/>
+      <Statistic name={statistics[1].name} count={statistics[1].count}/>
+      <Statistic name={statistics[2].name} count={statistics[2].count}/>
+      <Statistic name='all' count={total()} />
+      <Statistic name='average' count={average()} />
+      <Statistic name='positive' count={positive()} />
     </div>
   )
 }
 
-const Statistic = ({statistics}) => {
+const Computation = ({title, number}) => {
+  return (
+    <div>
+      <p>{title} {number}</p>
+    </div>
+  )
+}
+
+const Statistic = ({name, count}) => {
   return (
     <div> 
-      <p>{statistics.name} {statistics.count}</p>
+      <p>{name} {count}</p>
     </div>
   )
 }
 
 const App = () => {
-  // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [score, setScore] = useState(0)
 
-  const statistics = {
-    good: {
+  const statistics = [
+    {
       name:'good',
-      count: good
+      count: good,
+      score: 1
     }, 
-    neutral: {
+    {
       name: 'neutral',
-      count: neutral
+      count: neutral, 
+      score: 0
     },
-    bad: {
+    {
       name: 'bad',
-      count: bad
+      count: bad, 
+      score: -1
     }
-  }
+  ]
 
   return (
     <div>
@@ -48,7 +89,7 @@ const App = () => {
       <button onClick={() => setBad(bad+1)}>bad</button>
 
       <h1>statistics</h1>
-      <StatisticCount statistics={statistics} />
+      <Statistics statistics={statistics} />
     </div>
   )
 }
