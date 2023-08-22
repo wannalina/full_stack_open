@@ -32,16 +32,24 @@ const Statistics = ({statistics}) => {
     return (positive + '%')
   }
 
+  if (total() !== 0) {
+    return (
+      <div>
+        <Statistic name={statistics[0].name} count={statistics[0].count}/>
+        <Statistic name={statistics[1].name} count={statistics[1].count}/>
+        <Statistic name={statistics[2].name} count={statistics[2].count}/>
+        <Statistic name='all' count={total()} />
+        <Statistic name='average' count={average()} />
+        <Statistic name='positive' count={positive()} />
+      </div>
+    )
+  }
   return (
     <div>
-      <Statistic name={statistics[0].name} count={statistics[0].count}/>
-      <Statistic name={statistics[1].name} count={statistics[1].count}/>
-      <Statistic name={statistics[2].name} count={statistics[2].count}/>
-      <Statistic name='all' count={total()} />
-      <Statistic name='average' count={average()} />
-      <Statistic name='positive' count={positive()} />
+      <p>No feedbck given</p>
     </div>
   )
+
 }
 
 const Statistic = ({name, count}) => {
