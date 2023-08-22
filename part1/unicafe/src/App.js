@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 
 const Statistics = ({statistics}) => {
+  // function to calculate total number of evaluations given
   const total = () => {
     let count = 0
     statistics.forEach(element => {
@@ -10,6 +11,7 @@ const Statistics = ({statistics}) => {
     return (count)
   }
 
+  // function to calculate average score
   const average = () => {
     let number = 0
     statistics.forEach(element => {
@@ -23,6 +25,7 @@ const Statistics = ({statistics}) => {
     return (avg)
   }
 
+  // function to calculate the percentage of positive evaluations
   const positive = () => {
     const all = total()
     const positive = statistics[0].count / all
@@ -41,14 +44,6 @@ const Statistics = ({statistics}) => {
   )
 }
 
-const Computation = ({title, number}) => {
-  return (
-    <div>
-      <p>{title} {number}</p>
-    </div>
-  )
-}
-
 const Statistic = ({name, count}) => {
   return (
     <div> 
@@ -61,7 +56,6 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-  const [score, setScore] = useState(0)
 
   const statistics = [
     {
