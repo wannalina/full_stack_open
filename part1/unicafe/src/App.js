@@ -35,28 +35,34 @@ const Statistics = ({statistics}) => {
   if (total() !== 0) {
     return (
       <div>
-        <Statistic name={statistics[0].name} count={statistics[0].count}/>
-        <Statistic name={statistics[1].name} count={statistics[1].count}/>
-        <Statistic name={statistics[2].name} count={statistics[2].count}/>
-        <Statistic name='all' count={total()} />
-        <Statistic name='average' count={average()} />
-        <Statistic name='positive' count={positive()} />
+        <StatisticLine name={statistics[0].name} count={statistics[0].count}/>
+        <StatisticLine name={statistics[1].name} count={statistics[1].count}/>
+        <StatisticLine name={statistics[2].name} count={statistics[2].count}/>
+        <StatisticLine name='all' count={total()} />
+        <StatisticLine name='average' count={average()} />
+        <StatisticLine name='positive' count={positive()} />
       </div>
     )
   }
   return (
     <div>
-      <p>No feedbck given</p>
+      <p>No feedback given</p>
     </div>
   )
 
 }
 
-const Statistic = ({name, count}) => {
+const StatisticLine = ({name, count}) => {
   return (
     <div> 
       <p>{name} {count}</p>
     </div>
+  )
+}
+
+const Button = ({func, text}) => {
+  return (
+    <button onClick={func}>{text}</button>
   )
 }
 
@@ -86,9 +92,9 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => setGood(good+1)}>good</button>
-      <button onClick={() => setNeutral(neutral+1)}>neutral</button>
-      <button onClick={() => setBad(bad+1)}>bad</button>
+      <Button func = {() => setGood(good+1)} text = {'good'}/>
+      <Button func = {() => setNeutral(neutral+1)} text = {'neutral'}/>
+      <Button func = {() => setBad(bad+1)} text = {'bad'}/>
 
       <h1>statistics</h1>
       <Statistics statistics={statistics} />
