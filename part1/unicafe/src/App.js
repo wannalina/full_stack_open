@@ -28,7 +28,7 @@ const Statistics = ({statistics}) => {
   // function to calculate the percentage of positive evaluations
   const positive = () => {
     const all = total()
-    const positive = statistics[0].count / all
+    const positive = (statistics[0].count / all) * 100
     return (positive + '%')
   }
 
