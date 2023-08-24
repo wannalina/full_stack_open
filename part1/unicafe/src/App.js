@@ -35,12 +35,16 @@ const Statistics = ({statistics}) => {
   if (total() !== 0) {
     return (
       <div>
-        <StatisticLine name={statistics[0].name} count={statistics[0].count}/>
-        <StatisticLine name={statistics[1].name} count={statistics[1].count}/>
-        <StatisticLine name={statistics[2].name} count={statistics[2].count}/>
-        <StatisticLine name='all' count={total()} />
-        <StatisticLine name='average' count={average()} />
-        <StatisticLine name='positive' count={positive()} />
+        <table>
+          <tbody>
+            <StatisticLine name={statistics[0].name} count={statistics[0].count}/>
+            <StatisticLine name={statistics[1].name} count={statistics[1].count}/>
+            <StatisticLine name={statistics[2].name} count={statistics[2].count}/>
+            <StatisticLine name='all' count={total()} />
+            <StatisticLine name='average' count={average()} />
+            <StatisticLine name='positive' count={positive()} />
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -54,9 +58,10 @@ const Statistics = ({statistics}) => {
 
 const StatisticLine = ({name, count}) => {
   return (
-    <div> 
-      <p>{name} {count}</p>
-    </div>
+    <tr>
+      <td>{name}</td>
+      <td>{count}</td>
+    </tr>
   )
 }
 
