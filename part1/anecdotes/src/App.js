@@ -8,6 +8,16 @@ const Button = ({func, text}) => {
   )
 }
 
+const DisplayAnecdote = ({type, anecdote, vote}) => {
+  return (
+    <div>
+      <h1>{type}</h1>
+      <p>{anecdote}</p>
+      <p>has {vote} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -27,7 +37,6 @@ const App = () => {
 
   const generateAnecdote = () => {
     let random_number = Math.floor(Math.random() * 7)
-    console.log(selected, random_number)
     setSelected(random_number)
     return (random_number)
   }
@@ -44,13 +53,27 @@ const App = () => {
     setVoted(result)
   }
 
+  const getMostVotesAnecdote = () => {
+    let mostVotesIndex = 0
+    let mostVotes = 0
+    
+    for (let i = 0; i < voted.length; i++) {
+      if (voted[i] > mostVotes) {
+        mostVotes = voted[i]
+        mostVotesIndex = i
+      }
+    }
+    return (mostVotesIndex)
+  }
+
   return (
     <div>
-      <h1>{anecdotes[selected]}</h1>
-      <h2>has {voted[selected]} votes</h2>
+      <DisplayAnecdote type={'Anecdote of the Day'} anecdote={anecdotes[selected]} vote={voted[selected]} />
       <br />
       <Button func={() => generateAnecdote()} text={'next anecdote'} />
       <Button func={() => addVotes()} text={'vote'} />
+      <br />
+      <DisplayAnecdote type={'Anecdote with Most Votes'} anecdote={anecdotes[getMostVotesAnecdote()]} vote={voted[getMostVotesAnecdote()]} />
     </div>
   )
 }
