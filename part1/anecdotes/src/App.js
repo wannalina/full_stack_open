@@ -9,12 +9,6 @@ const Button = ({func, text}) => {
 }
 
 const App = () => {
-  const generateAnecdote = () => {
-    const random_number = Math.floor(Math.random() * 100)
-    setSelected(selected+1)
-    return (random_number)
-  }
-
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -26,13 +20,37 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  const votes = new Array (anecdotes.length).fill(0)
+
   const [selected, setSelected] = useState(0)
+  const [voted, setVoted] = useState(votes);
+
+  const generateAnecdote = () => {
+    let random_number = Math.floor(Math.random() * 7)
+    console.log(selected, random_number)
+    setSelected(random_number)
+    return (random_number)
+  }
+
+  const addVotes = () => {
+    let votesUpdate = [...votes]
+    votesUpdate[selected] += 1
+
+    const result = [];
+    for (let i = 0; i < votesUpdate.length; i++) {
+      result.push(votesUpdate[i] + voted[i]);
+    }
+    
+    setVoted(result)
+  }
 
   return (
     <div>
       <h1>{anecdotes[selected]}</h1>
+      <h2>has {voted[selected]} votes</h2>
       <br />
-      <Button func={generateAnecdote()} text={'next anecdote'} />
+      <Button func={() => generateAnecdote()} text={'next anecdote'} />
+      <Button func={() => addVotes()} text={'vote'} />
     </div>
   )
 }
